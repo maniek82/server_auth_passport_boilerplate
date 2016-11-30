@@ -3,13 +3,17 @@ const http = require("http");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const app = express();
 const router = require("./router");
+const cors = require("cors");
+const config = require("./config");
+
 
 // DB setup
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://maniek:baza123@ds163677.mlab.com:63677/react_auth");
+mongoose.connect(config.database);
 //App Setup
+const app = express();
+app.use(cors());
 app.use(morgan('combined'));
 app.use(bodyParser.json({type: '*/*'}));
 
